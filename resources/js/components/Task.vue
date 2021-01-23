@@ -7,8 +7,14 @@
                 </div>
             </div>
             <ul class="list-group">
-                <li class="list-group-item" v-for="task in tasks.data" :key="task.id"><a href="#">{{ task.name }}</a>
+                <li class="list-group-item d-flex justify-content-between align-items-center" v-for="task in tasks.data"
+                    :key="task.id">{{ task.name }}
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit"
+                            @click="getTask(task.id)">
+                        Modifier
+                    </button>
                 </li>
+                <edit-task v-bind:editTask="editTask" @task-edited="refresh"></edit-task>
             </ul>
             <pagination class="py-3" :data="tasks" @pagination-change-page="getResults">
                 <span slot="prev-nav">&lt;</span>
@@ -26,7 +32,8 @@
         components: {NavBar},
         data() {
             return {
-                tasks: {}
+                tasks: {},
+                editTask: '',
             }
         },
 
@@ -51,7 +58,13 @@
             },
             refresh(tasks) {
                 this.tasks = tasks.data
-            }
+            },
+            getTask(task_id) {
+                axios.get('/task/edit/' + task_id)
+                    .then(response => {
+                        this.editTask = response.data;
+                    });
+            },
         }
     }
 </script>

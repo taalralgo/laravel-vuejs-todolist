@@ -60,7 +60,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        return response()->json($task);
     }
 
     /**
@@ -72,7 +72,11 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $task = Task::find($request->id);
+        $task->name = $request->name;
+        $task->save();
+        $data = $this->index();
+        return $data;
     }
 
     /**
