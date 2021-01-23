@@ -2146,6 +2146,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Task",
@@ -2187,6 +2192,13 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/task/edit/' + task_id).then(function (response) {
         _this3.editTask = response.data;
+      });
+    },
+    deleteTask: function deleteTask(task_id) {
+      var _this4 = this;
+
+      axios["delete"]('/task/delete/' + task_id).then(function (response) {
+        _this4.tasks = response.data;
       });
     }
   }
@@ -38833,23 +38845,47 @@ var render = function() {
                 },
                 [
                   _vm._v(_vm._s(task.name) + "\n                "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-info",
-                      attrs: {
-                        type: "button",
-                        "data-toggle": "modal",
-                        "data-target": "#edit"
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.getTask(task.id)
+                  _c("div", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info",
+                        attrs: {
+                          type: "button",
+                          "data-toggle": "modal",
+                          "data-target": "#edit"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.getTask(task.id)
+                          }
                         }
-                      }
-                    },
-                    [_vm._v("\n                    Modifier\n                ")]
-                  )
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Modifier\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteTask(task.id)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Supprimer\n                    "
+                        )
+                      ]
+                    )
+                  ])
                 ]
               )
             }),

@@ -9,10 +9,15 @@
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center" v-for="task in tasks.data"
                     :key="task.id">{{ task.name }}
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit"
-                            @click="getTask(task.id)">
-                        Modifier
-                    </button>
+                    <div>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit"
+                                @click="getTask(task.id)">
+                            Modifier
+                        </button>
+                        <button type="button" class="btn btn-danger" @click="deleteTask(task.id)">
+                            Supprimer
+                        </button>
+                    </div>
                 </li>
                 <edit-task v-bind:editTask="editTask" @task-edited="refresh"></edit-task>
             </ul>
@@ -63,6 +68,12 @@
                 axios.get('/task/edit/' + task_id)
                     .then(response => {
                         this.editTask = response.data;
+                    });
+            },
+            deleteTask(task_id) {
+                axios.delete('/task/delete/' + task_id)
+                    .then(response => {
+                        this.tasks = response.data;
                     });
             },
         }
