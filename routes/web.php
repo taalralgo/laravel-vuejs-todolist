@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 Route::get('/', 'HomeController@index');
+Route::get('/tasks', 'TaskController@index');
+Route::post('/task/add', 'TaskController@store');

@@ -15,6 +15,8 @@ import Task from "./components/Task";
 Vue.use(VueRouter);
 
 Vue.component('App', require('./components/App.vue').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('add-task', require('./components/AddTask').default);
 
 const routes = [
     { path: '/home', component: App },
